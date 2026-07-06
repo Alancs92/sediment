@@ -13,7 +13,7 @@ secrets/
 *.db-journal
 *.db-shm
 *.db-wal
-/data/
+data/
 /media/
 /recordings/
 /screenshots/

@@ -1,0 +1,25 @@
+services:
+  aggregator:
+    build: .
+    env_file:
+      - .env
+    ports:
+      - "${STATUS_PORT:-8420}:${STATUS_PORT:-8420}"
+    volumes:
+      - ./data/meetily:/data/meetily:ro
+      - ./data/screenpipe:/data/screenpipe:ro
+      - ./data/output:/data/output
+    restart: unless-stopped
+
+  # Optional: run Ollama in this same stack instead of on the host.
+  # `docker compose --profile with-ollama up` to include it, and set
+  # OLLAMA_BASE_URL=http://ollama:11434 in .env when you do.
+  ollama:
+    image: ollama/ollama:latest
+    profiles: ["with-ollama"]
+    volumes:
+      - ollama-models:/root/.ollama
+    restart: unless-stopped
+
+volumes:
+  ollama-models:

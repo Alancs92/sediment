@@ -44,3 +44,4 @@ accepted, not just benefits.
 |---|---|---|
 | [0001](0001-record-architecture-decisions.md) | Record architecture decisions | Accepted |
 | [0002](0002-initial-ambient-capture-architecture-decisions.md) | Initial ambient-capture architecture decisions | Accepted |
+| [0003](0003-aggregator-v0-container-and-adapters.md) | Aggregator v0: container packaging and file-based adapters | Accepted |

@@ -1,0 +1,18 @@
+[
+  {
+    "start": "2026-07-06T09:05:00",
+    "end": "2026-07-06T09:10:00",
+    "app": "Zoom",
+    "window_title": "Team standup",
+    "ocr_text": "Sprint board on screen",
+    "audio_transcript": "same audio as the meeting"
+  },
+  {
+    "start": "2026-07-06T10:00:00",
+    "end": "2026-07-06T10:30:00",
+    "app": "Code",
+    "window_title": "aggregator/pipeline.py",
+    "ocr_text": "editing pipeline.py",
+    "audio_transcript": null
+  }
+]

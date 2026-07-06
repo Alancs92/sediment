@@ -10,7 +10,8 @@ written to be read by humans and AI agents alike — see the root
 | [`implementation/`](implementation/) | The build plan: phased order of work, current status of each phase. |
 | [`decisions/`](decisions/) | Architecture Decision Records (ADRs) — an append-only log of choices made and why. Never edit or delete a past ADR; supersede it with a new one instead. |
 | [`standards/`](standards/) | Baseline engineering practices that apply to every change regardless of language or component: TDD, security, code review. |
-| [`infrastructure/`](infrastructure/) | CI/CD, environments, secrets, deployment/runtime concerns. Placeholder until code exists. |
+| [`infrastructure/`](infrastructure/) | CI/CD, environments, secrets, deployment/runtime concerns. |
+| [`setup/`](setup/) | Guides for installing Meetily, Screenpipe, and Ollama on your own machine — these run locally, not in CI/cloud. |
 
 ## How these relate
 
