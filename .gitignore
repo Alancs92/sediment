@@ -1,0 +1,48 @@
+# --- Secrets & local config ---
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+secrets/
+
+# --- Local databases & captured media (Screenpipe/Meetily produce these locally) ---
+*.db
+*.sqlite
+*.sqlite3
+*.db-journal
+*.db-shm
+*.db-wal
+/data/
+/media/
+/recordings/
+/screenshots/
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# --- Node ---
+node_modules/
+npm-debug.log*
+dist/
+
+# --- Go ---
+/bin/
+*.test
+
+# --- Editors / OS ---
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# --- Logs ---
+*.log
+logs/
