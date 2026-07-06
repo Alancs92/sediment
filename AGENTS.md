@@ -13,10 +13,11 @@ pipeline (meetings, desktop/audio context, coding sessions) normalized into a
 daily record and synced to Notion. The full design is in
 [`docs/architecture/ambient-capture-architecture.md`](docs/architecture/ambient-capture-architecture.md).
 
-**Current state: documentation only.** No application code has been written
-yet. Code lands on separate branches/PRs, built in the order defined in
-[`docs/implementation/README.md`](docs/implementation/README.md). Do not add
-implementation code against this baseline without checking that file first.
+**Current state:** docs plus one component. `aggregator/` (phase 3 of the
+plan) is scaffolded and tested, but runs against sample/mocked data —
+Meetily and Screenpipe (phases 1-2) haven't been set up on a real machine
+yet. Check [`docs/implementation/README.md`](docs/implementation/README.md)
+before adding to any component; it tracks what's actually done vs. planned.
 
 ## Read this before doing anything else
 

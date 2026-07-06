@@ -5,9 +5,11 @@ continuous desktop/audio context, and coding-agent sessions; normalizes them
 into a daily record; syncs the useful bits into Notion; and archives raw
 media cheaply.
 
-**Status: documentation only.** This repository currently contains only
-architecture and process docs — no application code has been written yet.
-Implementation will land on separate branches once the docs here are settled.
+**Status: early implementation.** The aggregator (phase 3, `aggregator/`) is
+scaffolded, tested, and containerized, but still runs against sample data —
+Meetily and Screenpipe (phases 1-2) haven't been set up on a real machine
+yet, so there's no real capture data to feed it. See
+[`docs/implementation/README.md`](docs/implementation/README.md) for status.
 
 ## Components (planned)
 
@@ -33,6 +35,13 @@ If you're an AI coding agent, start at [`AGENTS.md`](AGENTS.md) instead.
 
 See [`docs/implementation/README.md`](docs/implementation/README.md) for the
 phased build plan and current status of each phase.
+
+## Getting started
+
+- Setting up Meetily/Screenpipe/Ollama on your own machine:
+  [`docs/setup/`](docs/setup/)
+- Running the aggregator (Docker or local Python):
+  [`aggregator/README.md`](aggregator/README.md)
 
 ## Contributing
 
