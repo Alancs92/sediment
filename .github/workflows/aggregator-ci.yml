@@ -5,7 +5,13 @@ on:
     branches: [main]
     paths: ["aggregator/**", ".github/workflows/aggregator-ci.yml"]
   pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
     paths: ["aggregator/**", ".github/workflows/aggregator-ci.yml"]
+  workflow_dispatch: {}
+
+concurrency:
+  group: aggregator-ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 defaults:
   run:
@@ -13,7 +19,11 @@ defaults:
 
 jobs:
   test:
+    # Skip while the PR is a draft; a skipped job costs nothing (push events
+    # have no pull_request context, so this stays true for them).
+    if: github.event_name != 'pull_request' || github.event.pull_request.draft == false
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -24,7 +34,9 @@ jobs:
       - run: pytest --cov=sediment_aggregator --cov-report=term-missing
 
   docker-build:
+    if: github.event_name != 'pull_request' || github.event.pull_request.draft == false
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - run: docker build -t sediment-aggregator:ci .
