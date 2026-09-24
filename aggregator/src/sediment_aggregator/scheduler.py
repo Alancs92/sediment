@@ -13,7 +13,7 @@ import logging
 import threading
 import time
 from dataclasses import asdict, dataclass
-from datetime import date, datetime, timedelta
+from datetime import datetime, timedelta
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
 from .config import Settings
@@ -36,7 +36,7 @@ class RunStatus:
 class _StatusHandler(BaseHTTPRequestHandler):
     status: RunStatus  # set via factory below
 
-    def do_GET(self):  # noqa: N802 (stdlib method name)
+    def do_GET(self):
         if self.path == "/healthz":
             body, code = b"ok", 200
         elif self.path == "/status":
@@ -50,7 +50,7 @@ class _StatusHandler(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(body)
 
-    def log_message(self, format, *args):  # noqa: A002 - stdlib signature
+    def log_message(self, format, *args):
         logger.debug("status server: " + format, *args)
 
 
@@ -67,7 +67,10 @@ def _seconds_until(run_time: str, now: datetime) -> float:
 
 
 def run_once(settings: Settings, status: RunStatus) -> None:
-    today = date.today()
+    # Explicit local tz: this scheduler runs a daily job at a local
+    # wall-clock time (settings.daily_run_time), so "today" must follow the
+    # local day boundary, not an implicit one.
+    today = datetime.now().astimezone().date()
     try:
         output_path = run_for_date(
             today,
@@ -84,7 +87,7 @@ def run_once(settings: Settings, status: RunStatus) -> None:
         status.last_run_ok = False
         status.last_error = str(exc)
     finally:
-        status.last_run_at = datetime.now().isoformat(timespec="seconds")
+        status.last_run_at = datetime.now().astimezone().isoformat(timespec="seconds")
 
 
 def serve(settings: Settings) -> None:
@@ -95,8 +98,9 @@ def serve(settings: Settings) -> None:
     logger.info("status endpoint on :%d (/status, /healthz)", settings.status_port)
 
     while True:
-        wait_seconds = _seconds_until(settings.daily_run_time, datetime.now())
-        status.next_run_at = (datetime.now() + timedelta(seconds=wait_seconds)).isoformat(
+        now = datetime.now().astimezone()
+        wait_seconds = _seconds_until(settings.daily_run_time, now)
+        status.next_run_at = (now + timedelta(seconds=wait_seconds)).isoformat(
             timespec="seconds"
         )
         logger.info("next run at %s (in %.0fs)", status.next_run_at, wait_seconds)

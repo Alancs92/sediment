@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import argparse
 import os
-from datetime import date
+from datetime import date, datetime
 
 from .config import Settings
 from .logging_config import configure_logging
@@ -20,7 +20,13 @@ def main() -> None:
 
     run_parser = subparsers.add_parser("run", help="Run once for a single date and exit")
     run_parser.add_argument(
-        "--date", type=date.fromisoformat, default=date.today(), help="YYYY-MM-DD, default today"
+        "--date",
+        type=date.fromisoformat,
+        # Explicit local tz (not date.today()'s implicit one) so ruff's
+        # DTZ011 sees the timezone choice is deliberate: "today" for a CLI
+        # a person runs should follow their local day boundary.
+        default=datetime.now().astimezone().date(),
+        help="YYYY-MM-DD, default today",
     )
 
     subparsers.add_parser("serve", help="Run daily on a schedule with a status endpoint")
