@@ -1,12 +1,12 @@
 from __future__ import annotations
 
-from datetime import datetime
+from datetime import UTC, datetime
 
 from sediment_aggregator.dedupe import dedupe_screenpipe_against_meetily
 
 
 def dt(hour, minute=0):
-    return datetime(2026, 7, 6, hour, minute)
+    return datetime(2026, 7, 6, hour, minute, tzinfo=UTC)
 
 
 def test_no_meetings_leaves_segments_untouched(make_segment):
